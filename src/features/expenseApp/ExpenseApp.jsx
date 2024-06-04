@@ -5,9 +5,11 @@ import IncomeExpense from "../../components/IncomeExpense";
 import Summary from "../../components/Summary";
 import Transection from "../../components/Transection";
 import TransectionModal from "../../components/TransectionModal";
+import { useSelector } from "react-redux";
 
 const ExpenseApp = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const expenseData = useSelector((state) => state.expenseApp.expenseData);
 
   return (
     <Box>
@@ -37,7 +39,18 @@ const ExpenseApp = () => {
             w={"full"}>
             Income
           </Heading>
-          <Transection />
+          {expenseData && expenseData.length
+            ? expenseData.map((expItem, index) => {
+                return expItem.type === "income" ? (
+                  <Transection
+                    key={`income-${index}`}
+                    color='success'
+                    title={expItem.detail}
+                    desc={expItem.amount}
+                  />
+                ) : null;
+              })
+            : null}
         </Flex>
         <Flex
           w={"full"}
@@ -53,7 +66,18 @@ const ExpenseApp = () => {
             w={"full"}>
             Expenses
           </Heading>
-          <Transection />
+          {expenseData && expenseData.length
+            ? expenseData.map((expItem, index) => {
+                return expItem.type === "expense" ? (
+                  <Transection
+                    key={`expense-${index}`}
+                    color='error'
+                    title={expItem.detail}
+                    desc={expItem.amount}
+                  />
+                ) : null;
+              })
+            : null}
         </Flex>
       </Flex>
       <TransectionModal

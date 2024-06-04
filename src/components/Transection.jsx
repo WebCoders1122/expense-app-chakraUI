@@ -5,7 +5,7 @@ const Transection = ({ color = "success", title = "Income", desc = "200" }) => {
   return (
     <Box
       borderRadius={"5"}
-      m={"2"}
+      mt={"2"}
       shadow={"sm"}
       w={"full"}>
       <Alert status={color}>
