@@ -1,7 +1,11 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const IncomeExpense = () => {
+  const totalIncome = useSelector((state) => state.expenseApp.totalIncome);
+  const totalExpense = useSelector((state) => state.expenseApp.totalExpense);
+
   return (
     <>
       <Flex
@@ -11,18 +15,18 @@ const IncomeExpense = () => {
         gap={"5"}
         m={"10"}
         w={"full"}>
-        <Heading size={"lg"}>Balance $1000</Heading>
+        <Heading size={"lg"}>Balance ${totalIncome - totalExpense}</Heading>
         <Text
           color={"blue.600"}
           fontSize={"2xl"}
           as={"b"}>
-          Income : $2500
+          Income : ${totalIncome}
         </Text>
         <Text
           color={"red.600"}
           fontSize={"2xl"}
           as={"b"}>
-          Expense : $1500
+          Expense : ${totalExpense}
         </Text>
       </Flex>
     </>

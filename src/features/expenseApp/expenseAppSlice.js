@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  expenseData: [
+  incomeData: [
     {
       detail: "1st income",
       amount: "1000",
@@ -12,6 +12,8 @@ const initialState = {
       amount: "1500",
       type: "income",
     },
+  ],
+  expenseData: [
     {
       detail: "2nd expense",
       amount: "500",
@@ -23,6 +25,8 @@ const initialState = {
       type: "expense",
     },
   ],
+  totalIncome: 2500,
+  totalExpense: 700,
 };
 
 export const expenseAppSlice = createSlice({
@@ -30,8 +34,16 @@ export const expenseAppSlice = createSlice({
   initialState,
   reducers: {
     addExpense: (state, action) => {
-      state.expenseData.push(action.payload);
-      console.log(state.expenseData, action.payload);
+      if (action.payload.type === "income") {
+        state.incomeData.push(action.payload);
+        state.totalIncome =
+          state.totalIncome + parseFloat(action.payload.amount);
+      } else {
+        state.expenseData.push(action.payload);
+        state.totalExpense =
+          state.totalExpense + parseFloat(action.payload.amount);
+      }
+      // console.log(state.expenseData, action.payload);
     },
   },
   // extraReducers: (builder) => {},

@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 const ExpenseApp = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const expenseData = useSelector((state) => state.expenseApp.expenseData);
+  const incomeData = useSelector((state) => state.expenseApp.incomeData);
 
   return (
     <Box>
@@ -39,14 +40,14 @@ const ExpenseApp = () => {
             w={"full"}>
             Income
           </Heading>
-          {expenseData && expenseData.length
-            ? expenseData.map((expItem, index) => {
-                return expItem.type === "income" ? (
+          {incomeData && incomeData.length
+            ? incomeData.map((incItem, index) => {
+                return incItem.type === "income" ? (
                   <Transection
                     key={`income-${index}`}
                     color='success'
-                    title={expItem.detail}
-                    desc={expItem.amount}
+                    title={incItem.detail}
+                    desc={incItem.amount}
                   />
                 ) : null;
               })

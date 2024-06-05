@@ -18,13 +18,15 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addExpense } from "../features/expenseApp/expenseAppSlice";
 
+const initialState = {
+  detail: "",
+  amount: "",
+  type: "",
+};
+
 const TransectionModal = ({ isOpen, onOpen, onClose }) => {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    detail: "",
-    amount: 0,
-    type: "",
-  });
+  const [formData, setFormData] = useState(initialState);
   //   console.log(expenseData);
   //handler functions for formData
   const handleChange = (e) => {
@@ -34,6 +36,7 @@ const TransectionModal = ({ isOpen, onOpen, onClose }) => {
   const handleSubmit = (e) => {
     onClose();
     dispatch(addExpense(formData));
+    setFormData(initialState);
   };
   return (
     <>
@@ -48,18 +51,24 @@ const TransectionModal = ({ isOpen, onOpen, onClose }) => {
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
-              <FormLabel>Details</FormLabel>
+              <FormLabel htmlFor='detail'>Details</FormLabel>
               <Input
                 onChange={(e) => handleChange(e)}
                 name='detail'
                 type='text'
+                id='detail'
                 value={formData.detail}
                 placeholder='Enter Transection Detail'
               />
-              <FormLabel mt={"2"}>Amount</FormLabel>
+              <FormLabel
+                mt={"2"}
+                htmlFor='amount'>
+                Amount
+              </FormLabel>
               <Input
                 onChange={(e) => handleChange(e)}
                 name='amount'
+                id='amount'
                 type='number'
                 value={formData.amount}
                 placeholder='Enter Transection Amount'

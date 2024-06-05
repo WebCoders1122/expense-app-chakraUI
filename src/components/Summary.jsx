@@ -1,10 +1,13 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import Chart from "react-apexcharts";
+import { useSelector } from "react-redux";
 
 const Summary = () => {
+  const totalIncome = useSelector((state) => state.expenseApp.totalIncome);
+  const totalExpense = useSelector((state) => state.expenseApp.totalExpense);
   const options = {
-    series: [2500, 1500],
+    series: [totalIncome, totalExpense],
     labels: ["Income", "Expenses"],
     colors: ["#213ebf", "#FD5E53"],
     chart: {
